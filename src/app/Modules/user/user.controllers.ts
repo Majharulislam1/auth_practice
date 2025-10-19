@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { User } from "./user.models";
 import {
-    BAD_REQUEST,
+  
     CREATED
 } from 'http-status-codes';
 
 
-const createUser = async (req: Request, res: Response) => {
+const createUser = async (req: Request, res: Response,next:NextFunction) => {
 
     try {
         const { name, email } = req.body;
@@ -20,11 +20,7 @@ const createUser = async (req: Request, res: Response) => {
             user
         })
     } catch (error) {
-        res.status(BAD_REQUEST).json({
-            success: 'false',
-            message: 'BAD REQUEST',
-            error
-        })
+        next(error);
     }
 }
 
