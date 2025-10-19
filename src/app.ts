@@ -1,9 +1,11 @@
-import express, { Application, NextFunction, Request, Response } from 'express'
+import express, { Application,   Request, Response } from 'express'
 import cors from 'cors'
  
 import { router } from './app/routes';
-import { envVars } from './app/Config/env';
+ 
 import { globalErrorHandler } from './app/middlewares/globalErrorHandler';
+ 
+import { NotFound } from './app/middlewares/NotFound';
 
 export const app:Application = express();
 
@@ -24,3 +26,4 @@ app.get('/',(req:Request,res:Response)=>{
 
  
 app.use(globalErrorHandler)
+app.use(NotFound);
