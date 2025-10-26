@@ -3,7 +3,9 @@ import { IUser } from "../user/user.interface";
 import { User } from "../user/user.models";
 import AppError from "../../errorHelpers/AppError";
 import bcrypt from "bcryptjs";
-
+ 
+import { generate_token } from "../../utils/jwt";
+import { envVars } from "../../Config/env";
 
 
 const credentialsLoginService =  async (payload: Partial<IUser>) => {
@@ -27,10 +29,16 @@ const credentialsLoginService =  async (payload: Partial<IUser>) => {
      
     }
 
-    
+    const user = {
+         email:isUserExist.email,
+         userId : isUserExist.id,
+         role:isUserExist.role
+    }
+
+    const token = generate_token(user,envVars.JWT_ACCESS_SECRET,envVars.JWT_ACCESS_EXPIRES);
 
     return {
-        email:isUserExist.email
+         token
     }
     
 

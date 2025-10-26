@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { app } from "./app";
 import { Server } from "http";
 import { envVars } from "./app/Config/env";
+import { seedSuperAdmin } from "./app/utils/seedSuperAdmin";
 
 
 
@@ -26,7 +27,11 @@ const main = async () => {
 
 }
 
-main();
+(async () => {
+    await main()
+    await seedSuperAdmin()
+})()
+
 
 
 /// global error
