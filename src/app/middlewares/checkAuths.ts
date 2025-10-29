@@ -22,6 +22,7 @@ export const checkAuths = (...authRoles : string[])=> (req: Request, res: Respon
             throw new AppError(403, "You are not permitted to view this route!!!")
         }
 
+      req.user = verifyToken;
 
      next();
       } catch (error) {
